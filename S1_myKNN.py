@@ -13,7 +13,7 @@ from imblearn.under_sampling import RandomUnderSampler
 # =============================================================================
 # Changing the character labels into numbers
 uniqueClasses=df["class"].unique()     
-# First way
+# First way (one-hot encoding)
 # df["class"] = (df["class"] == "g").astype(int)      # compares the elements in the "class" column with "g" and returns "True" or "Flase". Then converts these binaries into integers 1 and 0
 # Second way
 # df["class"] = df['class'].astype('category').cat.codes
