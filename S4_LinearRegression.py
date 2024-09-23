@@ -28,3 +28,27 @@ for label in df.columns[0:-1]:
     plt.show()
 # =============================================================================
 train, val, test = np.split(df.sample(frac=1), [int(0.6*len(df)), int(0.8*len(df))])
+
+# Now, imagine that we every time we are working on a specific feature, we want
+# to have just that feature and the output, and nothing else. So, let's write a
+# function to do so
+
+import copy
+def myXY(dataframe, yLabel, xLabel=None):
+    dataframe=copy.deepcopy(dataframe)
+    # if we don't mention any specific column for x
+    if not xLabel:
+        for a in dataframe.columns:
+            if a != yLabel:
+                X=dataframe[a].values
+    else:
+        if len(xLabel)==1:
+            X=dataframe[xLabel].values.reshape(-1,1)
+        else:
+            X=dataframe[xLabel].values
+    Y=dataframe[yLabel].values.reshape(-1,1)
+    data=np.hstack((X,Y))
+    
+    return data, X, Y
+
+_,xTrain, yTrain=myXY(train, ["house price of unit area"],["latitude"])
